@@ -2,9 +2,12 @@ package dev.iagorodrigues.productapi.dto;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import com.fasterxml.jackson.annotation.JsonInclude;
 
 import dev.iagorodrigues.productapi.model.Product;
 
+
+@JsonInclude(value = JsonInclude.Include.NON_NULL)
 public class ProductDTO {
 
     @NotBlank

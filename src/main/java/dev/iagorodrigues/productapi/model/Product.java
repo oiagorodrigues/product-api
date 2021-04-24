@@ -2,6 +2,8 @@ package dev.iagorodrigues.productapi.model;
 
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import dev.iagorodrigues.productapi.dto.ProductDTO;
 
 
@@ -20,7 +22,7 @@ public class Product {
 
     private String description;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "category_id")
     private Category category;
 
@@ -86,15 +88,4 @@ public class Product {
         return product;
     }
 
-    @Override
-    public String toString() {
-        return "Product{" +
-                "id=" + id +
-                ", productIdentifier='" + productIdentifier + '\'' +
-                ", name='" + name + '\'' +
-                ", price=" + price +
-                ", description='" + description + '\'' +
-                ", category=" + category +
-                '}';
-    }
 }

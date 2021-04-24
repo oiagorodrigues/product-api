@@ -1,5 +1,6 @@
 package dev.iagorodrigues.productapi.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -26,14 +27,20 @@ public class ProductService {
                 .collect(Collectors.toList());
     }
 
-    public ProductDTO getProductsByCategory (Long categoryId) {
-//        return productRepository.getProductsByCategory(categoryId)
-//                .stream()
-//                .map(ProductDTO::convert)
-//                .collect(Collectors.toList());
-        Product product = productRepository.getProductsByCategory(categoryId);
+    public List<ProductDTO> getProductsByCategory (Long categoryId) {
+        List<ProductDTO> productDTOList = new ArrayList<>();
 
-        return null;
+        productRepository.getProductsByCategory(categoryId)
+                .forEach(item -> {
+                    ProductDTO productDTO = new ProductDTO();
+                    productDTO.setName(item[0].toString());
+                    productDTO.setPrice(Float.parseFloat(item[1].toString()));
+                    productDTO.setProductIdentifier(item[2].toString());
+                    productDTO.setDescription(item[3].toString());
+                    productDTOList.add(productDTO);
+                });
+
+        return productDTOList;
     }
 
     public List<ProductDTO> findAllByProductIdentifier(String productIdentifier) {
