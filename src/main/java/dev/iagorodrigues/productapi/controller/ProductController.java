@@ -8,18 +8,20 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.validation.Valid;
 
-import dev.iagorodrigues.productapi.services.ProductService;
+import dev.iagorodrigues.productapi.service.ProductService;
 import dev.iagorodrigues.productapi.dto.ProductDTO;
 
 @RestController
 public class ProductController {
 
-    @Autowired
-    private ProductService productService;
+    private final ProductService productService;
+
+    public ProductController(ProductService productService) {
+        this.productService = productService;
+    }
 
     @PostMapping("/products")
     ProductDTO createProduct(@Valid @RequestBody ProductDTO productDTO) {
@@ -31,14 +33,14 @@ public class ProductController {
         return productService.getAll();
     }
 
-    @GetMapping("/products/{productCode}")
-    ProductDTO getProductByProductCode(@PathVariable String productCode) {
-        return productService.findByProductCode(productCode);
+    @GetMapping("/products/{productIdentifier}")
+    public List<ProductDTO> getAllProductsByProductIdentifier(@PathVariable String productIdentifier) {
+        return productService.findAllByProductIdentifier(productIdentifier);
     }
 
     @GetMapping("/products/category/{categoryId}")
-    public List<ProductDTO> getProductByCategory(@PathVariable Long categoryId) {
-        return productService.getProductByCategoryId(categoryId);
+    public ProductDTO getProductsByCategory(@PathVariable Long categoryId) {
+        return productService.getProductsByCategory(categoryId);
     }
 
     @DeleteMapping("/products/{id}")

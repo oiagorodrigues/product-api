@@ -8,7 +8,7 @@ import dev.iagorodrigues.productapi.model.Product;
 public class ProductDTO {
 
     @NotBlank
-    private String productCode;
+    private String productIdentifier;
 
     @NotBlank
     private String name;
@@ -20,14 +20,14 @@ public class ProductDTO {
     private Float price;
 
     @NotNull
-    private CategoryDTO categoryDTO;
+    private CategoryDTO category;
 
-    public String getProductCode() {
-        return productCode;
+    public String getProductIdentifier() {
+        return productIdentifier;
     }
 
-    public void setProductCode(String productCode) {
-        this.productCode = productCode;
+    public void setProductIdentifier(String productIdentifier) {
+        this.productIdentifier = productIdentifier;
     }
 
     public String getName() {
@@ -54,23 +54,23 @@ public class ProductDTO {
         this.price = price;
     }
 
-    public CategoryDTO getCategoryDTO() {
-        return categoryDTO;
+    public CategoryDTO getCategory() {
+        return category;
     }
 
-    public void setCategoryDTO(CategoryDTO categoryDTO) {
-        this.categoryDTO = categoryDTO;
+    public void setCategory(CategoryDTO category) {
+        this.category = category;
     }
 
     public static ProductDTO convert (Product product) {
         ProductDTO productDTO = new ProductDTO();
         productDTO.setName(product.getName());
-        productDTO.setProductCode(product.getProductCode());
+        productDTO.setProductIdentifier(product.getProductIdentifier());
         productDTO.setPrice(product.getPrice());
         productDTO.setDescription(product.getDescription());
 
         if (product.getCategory() != null) {
-            productDTO.setCategoryDTO(CategoryDTO.convert(product.getCategory()));
+            productDTO.setCategory(CategoryDTO.convert(product.getCategory()));
         }
 
         return productDTO;

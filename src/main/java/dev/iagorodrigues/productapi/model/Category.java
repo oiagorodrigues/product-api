@@ -5,7 +5,7 @@ import javax.persistence.*;
 import dev.iagorodrigues.productapi.dto.CategoryDTO;
 
 
-@Entity(name="category")
+@Entity(name = "category")
 public class Category {
 
     @Id

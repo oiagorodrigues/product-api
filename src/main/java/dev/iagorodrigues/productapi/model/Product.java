@@ -5,14 +5,14 @@ import javax.persistence.*;
 import dev.iagorodrigues.productapi.dto.ProductDTO;
 
 
-@Entity(name="product")
+@Entity(name = "product")
 public class Product {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    private String productCode;
+    private String productIdentifier;
 
     private String name;
 
@@ -32,12 +32,12 @@ public class Product {
         this.id = id;
     }
 
-    public String getProductCode() {
-        return productCode;
+    public String getProductIdentifier() {
+        return productIdentifier;
     }
 
-    public void setProductCode(String productCode) {
-        this.productCode = productCode;
+    public void setProductIdentifier(String productIdentifier) {
+        this.productIdentifier = productIdentifier;
     }
 
     public String getName() {
@@ -77,13 +77,24 @@ public class Product {
         product.setName(productDTO.getName());
         product.setPrice(productDTO.getPrice());
         product.setDescription(productDTO.getDescription());
-        product.setProductCode(productDTO.getProductCode());
+        product.setProductIdentifier(productDTO.getProductIdentifier());
 
-        if (productDTO.getCategoryDTO() != null) {
-            product.setCategory(Category.convert(productDTO.getCategoryDTO()));
+        if (productDTO.getCategory() != null) {
+            product.setCategory(Category.convert(productDTO.getCategory()));
         }
 
         return product;
     }
 
+    @Override
+    public String toString() {
+        return "Product{" +
+                "id=" + id +
+                ", productIdentifier='" + productIdentifier + '\'' +
+                ", name='" + name + '\'' +
+                ", price=" + price +
+                ", description='" + description + '\'' +
+                ", category=" + category +
+                '}';
+    }
 }
